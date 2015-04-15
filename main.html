@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Login Experiment</title>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script id="odauth" src="odauth.js"
+   clientId="0000000048144E4F" scopes="wl.signin"
+   redirectUri="https://onedrive.github.io/odx/callback.html"></script>
+</head>
+<body>
+	<div id="myDiv"></div>
+  <script>
+  
+          $('<a>').
+          attr("href", "#").
+          click(function() {
+            odauth(true);
+          })
+    // odauth calls our onAuthenticated method to give us the user's auth token.
+    // in this demo app we just use this as the method to drive the page logic
+    function onAuthenticated(token, authWindow) {
+      if (token) {
+        if (authWindow) {
+          removeLoginButton();
+          authWindow.close();
+        }
+      }
+      else {
+        alert("Error signing in");
+      }
+    }
+
+    // start the whole thing off by calling odauth() in non-click mode.
+    // if the user isn't logged in already, a sign-in link will appear
+    // for them to click.
+    odauth();
+  </script>
+</body>
+</html>
